@@ -1,0 +1,14 @@
+<main class="page">
+  <section class="card" aria-labelledby="title">
+    <header>
+      <p class="eyebrow">Challenge 02</p>
+      <h1 id="title">Mis contactos</h1>
+      <p class="subtitle">Agrega, consulta y elimina contactos fácilmente.</p>
+    </header>
+    @if (loading()) { <app-loader /> }
+    @else {
+      <app-contact-form (contactAdded)="addContact($event)" />
+      <app-contact-list [contacts]="contacts()" (contactDeleted)="deleteContact($event)" />
+    }
+  </section>
+</main>

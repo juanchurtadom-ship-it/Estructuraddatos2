@@ -1,0 +1,7 @@
+:host { display: block; min-height: 100vh; }
+.page { align-items: center; background: linear-gradient(135deg, #edf4ff, #f8fbff); box-sizing: border-box; display: flex; justify-content: center; min-height: 100vh; padding: 28px 16px; }
+.card { background: white; border: 1px solid #e2eaf4; border-radius: 16px; box-shadow: 0 16px 40px rgba(42, 75, 115, .12); max-width: 720px; padding: 32px; width: 100%; }
+.eyebrow { color: #2f6fed; font-size: .8rem; font-weight: 800; letter-spacing: .08em; margin: 0 0 8px; text-transform: uppercase; }
+.subtitle { color: #627187; margin: 8px 0 0; }
+h1 { color: #172033; font-size: clamp(1.8rem, 5vw, 2.4rem); margin: 0; }
+@media (max-width: 500px) { .card { padding: 22px; } }
