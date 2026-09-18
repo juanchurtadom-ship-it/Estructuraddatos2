@@ -1,0 +1,61 @@
+<div class="browser-container">
+
+  <h1> Historial del navegador</h1>
+
+  @if (currentPage) {
+
+    <div class="current-page">
+
+      <h2>{{ currentPage.title }}</h2>
+
+      <p>{{ currentPage.url }}</p>
+
+      <div class="navigation-buttons">
+
+        <button
+          (click)="goBack()"
+          [disabled]="currentPage === history.head?.data">
+          ◀ Atrás
+        </button>
+
+        <button
+          (click)="goForward()"
+          [disabled]="currentPage === history.tail?.data">
+          Adelante ▶
+        </button>
+
+      </div>
+
+    </div>
+
+  }
+
+  <h2>Historial</h2>
+
+  <div class="history-list">
+
+    @for (page of historyList; track $index) {
+
+      <div
+        class="history-item"
+        [class.current]="currentPage === page">
+
+        <span>
+          {{ $index + 1 }}. {{ page.title }}
+        </span>
+
+        <small>
+          {{ page.url }}
+        </small>
+
+        @if (currentPage === page) {
+          <strong> Página actual</strong>
+        }
+
+      </div>
+
+    }
+
+  </div>
+
+</div>

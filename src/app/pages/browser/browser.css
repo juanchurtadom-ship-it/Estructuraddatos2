@@ -1,0 +1,71 @@
+.browser-container {
+  max-width: 700px;
+  margin: 40px auto;
+  padding: 30px;
+  font-family: Arial, sans-serif;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.current-page {
+  padding: 25px;
+  margin-bottom: 30px;
+  border-radius: 12px;
+  background: #f3f3f3;
+  text-align: center;
+}
+
+.current-page h2 {
+  margin-bottom: 10px;
+}
+
+.current-page p {
+  color: #555;
+}
+
+.navigation-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 15px;
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.history-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.history-item {
+  padding: 15px;
+  border-radius: 8px;
+  background: #f5f5f5;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.history-item small {
+  color: #666;
+}
+
+.history-item strong {
+  margin-left: auto;
+  font-size: 13px;
+}

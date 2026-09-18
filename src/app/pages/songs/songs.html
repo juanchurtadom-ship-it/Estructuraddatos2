@@ -1,0 +1,61 @@
+<div class="songs-container">
+
+  <h1>🎵 Lista de canciones</h1>
+
+  @if (currentSong) {
+    <div class="current-song">
+
+      <h2>{{ currentSong.title }}</h2>
+
+      <p>Artista: {{ currentSong.artist }}</p>
+
+      <p>Duración: {{ currentSong.duration }}</p>
+
+      <div class="buttons">
+
+        <button
+          (click)="previousSong()"
+          [disabled]="currentIndex === 0">
+          ⏮ Anterior
+        </button>
+
+        <button
+          (click)="nextSong()"
+          [disabled]="currentIndex === songList.length - 1">
+          Siguiente ⏭
+        </button>
+
+      </div>
+
+    </div>
+  }
+
+  <h2>Cola de canciones</h2>
+
+  <ol class="song-list">
+
+    @for (song of songList; track $index) {
+
+      <li
+        [class.current]="currentIndex === $index">
+
+        <div>
+          <strong>{{ song.title }}</strong>
+          - {{ song.artist }}
+        </div>
+
+        <span>{{ song.duration }}</span>
+
+        @if (currentIndex === $index) {
+          <span class="playing">
+            ▶ Reproduciendo
+          </span>
+        }
+
+      </li>
+
+    }
+
+  </ol>
+
+</div>
