@@ -1,0 +1,136 @@
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  font-family: Arial, sans-serif;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 5px;
+}
+
+.subtitle {
+  text-align: center;
+  color: #666;
+  margin-bottom: 30px;
+}
+
+.card {
+  background: white;
+  border-radius: 12px;
+  padding: 25px;
+  margin-bottom: 25px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+.card h2 {
+  margin-top: 0;
+}
+
+.form-group {
+  margin-bottom: 18px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 7px;
+  font-weight: bold;
+}
+
+.form-group input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 15px;
+}
+
+button {
+  border: none;
+  border-radius: 8px;
+  padding: 12px 20px;
+  background: #1976d2;
+  color: white;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #125ca8;
+}
+
+button:disabled {
+  background: #aaa;
+  cursor: not-allowed;
+}
+
+.queue-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+}
+
+.queue-header p {
+  color: #666;
+}
+
+.remove-button {
+  background: #d32f2f;
+}
+
+.remove-button:hover {
+  background: #a92323;
+}
+
+.person {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 18px;
+  margin-top: 12px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+}
+
+.position {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #1976d2;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+
+.person-info {
+  flex: 1;
+}
+
+.person-info h3 {
+  margin: 0 0 8px;
+}
+
+.person-info p {
+  margin: 4px 0;
+  color: #555;
+}
+
+.status {
+  padding: 7px 12px;
+  border-radius: 20px;
+  background: #e3f2fd;
+  color: #1976d2;
+  font-size: 13px;
+  font-weight: bold;
+}
+
+.empty {
+  text-align: center;
+  padding: 30px;
+  color: #777;
+}
