@@ -1,0 +1,20 @@
+$color-principal: #1d3557;
+$color-secundario: #457b9d;
+$radio: 12px;
+
+.tareas-container {
+  font-family: Arial, sans-serif;
+
+  h1 {
+    color: $color-principal;
+  }
+
+  button {
+    border-radius: $radio;
+    transition: background-color 0.2s ease;
+
+    &:hover {
+      background-color: $color-secundario;
+    }
+  }
+}

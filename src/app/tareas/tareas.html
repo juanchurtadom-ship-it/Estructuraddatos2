@@ -1,0 +1,91 @@
+
+<div class="tareas-container">
+
+  <header class="encabezado">
+    <div>
+      <h1>Mis tareas</h1>
+      <p>Organiza tus actividades y lleva el control de tu progreso.</p>
+    </div>
+
+    <button class="btn-salir" (click)="cerrarSesion()">
+      Cerrar sesión
+    </button>
+  </header>
+
+  <section class="formulario-tarea">
+    <h2>{{ editandoId ? 'Editar tarea' : 'Nueva tarea' }}</h2>
+
+    <form (ngSubmit)="guardarTarea()" #formulario="ngForm">
+      <label for="titulo">Título</label>
+      <input
+        id="titulo"
+        name="titulo"
+        [(ngModel)]="titulo"
+        placeholder="Ej. Estudiar para el parcial"
+        required
+        maxlength="100"
+      >
+
+      <label for="descripcion">Descripción</label>
+      <textarea
+        id="descripcion"
+        name="descripcion"
+        [(ngModel)]="descripcion"
+        placeholder="Detalles de la tarea..."
+        rows="3"
+        maxlength="500"
+      ></textarea>
+
+      <div class="acciones-formulario">
+        <button type="submit" [disabled]="formulario.invalid || cargando">
+          {{ editandoId ? 'Guardar cambios' : 'Crear tarea' }}
+        </button>
+
+        @if (editandoId) {
+          <button type="button" class="btn-cancelar" (click)="cancelarEdicion()">
+            Cancelar
+          </button>
+        }
+      </div>
+    </form>
+  </section>
+
+  @if (mensaje) {
+    <p class="mensaje">{{ mensaje }}</p>
+  }
+
+  <section class="lista-tareas">
+    <h2>Lista de tareas</h2>
+
+    @if (cargando) {
+      <p>Cargando tareas...</p>
+    } @else if (tareas.length === 0) {
+      <p class="vacio">Todavía no tienes tareas. ¡Crea la primera!</p>
+    } @else {
+      @for (tarea of tareas; track tarea.id) {
+        <article class="tarea" [class.completada]="tarea.completada">
+          <div class="contenido-tarea">
+            <h3>{{ tarea.titulo }}</h3>
+            <p>{{ tarea.descripcion || 'Sin descripción' }}</p>
+            <span>{{ tarea.completada ? 'Completada' : 'Pendiente' }}</span>
+          </div>
+
+          <div class="acciones-tarea">
+            <button (click)="cambiarEstado(tarea)">
+              {{ tarea.completada ? 'Reabrir' : 'Completar' }}
+            </button>
+
+            <button class="btn-editar" (click)="editarTarea(tarea)">
+              Editar
+            </button>
+
+            <button class="btn-eliminar" (click)="eliminarTarea(tarea)">
+              Eliminar
+            </button>
+          </div>
+        </article>
+      }
+    }
+  </section>
+
+</div>

@@ -1,0 +1,57 @@
+
+<div class="register-container">
+
+  <h1>Crear cuenta</h1>
+  <p>Regístrate para comenzar a gestionar tus tareas.</p>
+
+  <form (ngSubmit)="registrar()" #formulario="ngForm">
+
+    <label for="email">Correo electrónico</label>
+    <input
+      type="email"
+      id="email"
+      name="email"
+      [(ngModel)]="email"
+      placeholder="correo@ejemplo.com"
+      required
+      email
+    >
+
+    <label for="password">Contraseña</label>
+    <input
+      type="password"
+      id="password"
+      name="password"
+      [(ngModel)]="password"
+      placeholder="Mínimo 6 caracteres"
+      [(ngModel)]="password"
+      required
+      minlength="6"
+    >
+
+    <label for="confirmarPassword">Confirmar contraseña</label>
+    <input
+      type="password"
+      id="confirmarPassword"
+      name="confirmarPassword"
+      [(ngModel)]="confirmarPassword"
+      placeholder="Repite tu contraseña"
+      required
+    >
+
+    <button type="submit" [disabled]="formulario.invalid || cargando">
+      {{ cargando ? 'Creando cuenta...' : 'Registrarme' }}
+    </button>
+
+  </form>
+
+  @if (mensaje) {
+    <p class="error">{{ mensaje }}</p>
+  }
+
+  <p>
+    ¿Ya tienes cuenta?
+    <a routerLink="/login">Iniciar sesión</a>
+  </p>
+
+</div>
