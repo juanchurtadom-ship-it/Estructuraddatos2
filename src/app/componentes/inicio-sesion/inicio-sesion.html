@@ -1,0 +1,43 @@
+<main class="auth-page">
+  <section class="auth-card">
+    <span class="marca"></span>
+
+    <h1>Bienvenido de nuevo</h1>
+    <p>Inicia sesión para administrar tus archivos.</p>
+
+    <form (ngSubmit)="iniciarSesion()">
+      <label for="correo">Correo electrónico</label>
+      <input
+        id="correo"
+        type="email"
+        name="correo"
+        [(ngModel)]="correo"
+        placeholder="nombre@correo.com"
+        autocomplete="email"
+        required
+      />
+
+      <label for="clave">Contraseña</label>
+      <input
+        id="clave"
+        type="password"
+        name="clave"
+        [(ngModel)]="clave"
+        placeholder="Tu contraseña"
+        autocomplete="current-password"
+        required
+      />
+
+      <p class="mensaje" role="alert">{{ mensaje }}</p>
+
+      <button type="submit" [disabled]="cargando">
+        {{ cargando ? 'Ingresando...' : 'Iniciar sesión' }}
+      </button>
+    </form>
+
+    <p class="enlace">
+      ¿No tienes una cuenta?
+      <a routerLink="/registro">Regístrate aquí</a>
+    </p>
+  </section>
+</main>

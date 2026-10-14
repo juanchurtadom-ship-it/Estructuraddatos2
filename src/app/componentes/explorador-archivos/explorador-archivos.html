@@ -1,0 +1,150 @@
+<main class="pagina">
+  <header class="encabezado">
+    <h1> Explorador de archivos</h1>
+    <div class="barra-usuario">
+  <p>Sesión iniciada como {{ correoActual }}</p>
+
+  <button
+    type="button"
+    class="boton-salir"
+    (click)="cerrarSesion()"
+  >
+    Cerrar sesión
+  </button>
+</div>
+    
+  </header>
+
+  <section class="resumen">
+    <span class="icono-raiz">📁</span>
+
+    <div>
+      <h2>Mis archivos</h2>
+      <p>Carpeta principal del árbol n-ario</p>
+    </div>
+
+    <span class="contador">
+      {{ obtenerElementos().length }} elementos
+    </span>
+  </section>
+
+  <section class="contenido">
+    <article class="panel">
+      <h2>Crear elemento</h2>
+      <p class="descripcion">
+        Selecciona una carpeta y agrega contenido.
+      </p>
+
+      <label for="carpetaPadre">Ubicación</label>
+
+      <select
+        id="carpetaPadre"
+        [value]="carpetaSeleccionada"
+        (change)="seleccionarCarpeta($event)"
+      >
+        @for (elemento of obtenerElementos(); track elemento.nodo.id) {
+          @if (elemento.nodo.esCarpeta()) {
+            <option [value]="elemento.nodo.id">
+              {{ '— '.repeat(elemento.nivel) }}{{ elemento.nodo.nombre }}
+            </option>
+          }
+        }
+      </select>
+
+      <label for="nombreCarpeta">Nombre de la carpeta</label>
+
+      <div class="fila-formulario">
+        <input
+          #nombreCarpeta
+          id="nombreCarpeta"
+          type="text"
+          placeholder="Ej. Universidad"
+          (keydown.enter)="crearCarpeta(nombreCarpeta.value); nombreCarpeta.value = ''"
+        />
+
+        <button
+          type="button"
+          class="boton-secundario"
+          (click)="crearCarpeta(nombreCarpeta.value); nombreCarpeta.value = ''"
+        >
+          + Carpeta
+        </button>
+      </div>
+
+      <label for="nombreArchivo">Nombre del archivo</label>
+
+      <div class="fila-formulario">
+        <input
+          #nombreArchivo
+          id="nombreArchivo"
+          type="text"
+          placeholder="Ej. parcial.pdf"
+          (keydown.enter)="crearArchivo(nombreArchivo.value); nombreArchivo.value = ''"
+        />
+
+        <button
+          type="button"
+          class="boton-principal"
+          (click)="crearArchivo(nombreArchivo.value); nombreArchivo.value = ''"
+        >
+          + Archivo
+        </button>
+      </div>
+
+      <p class="mensaje" role="status">{{ mensaje }}</p>
+    </article>
+
+    <article class="panel panel-arbol">
+      <div class="titulo-arbol">
+        <div>
+          <h2>Estructura del árbol</h2>
+          <p class="descripcion">
+            Carpetas y archivos organizados por niveles.
+          </p>
+        </div>
+      </div>
+
+      <div class="lista-arbol">
+        @for (elemento of obtenerElementos(); track elemento.nodo.id) {
+          <div
+            class="elemento-arbol"
+            [style.padding-left.px]="16 + elemento.nivel * 25"
+          >
+            <span class="icono-elemento">
+              {{ elemento.nodo.esCarpeta() ? '📁' : '📄' }}
+            </span>
+
+            <div class="informacion-elemento">
+              <strong>{{ elemento.nodo.nombre }}</strong>
+
+              <small>
+                Creado por {{ elemento.nodo.creadoPor }}
+              </small>
+            </div>
+
+            <span
+              class="tipo-elemento"
+              [class.tipo-carpeta]="elemento.nodo.esCarpeta()"
+            >
+              {{ elemento.nodo.esCarpeta() ? 'Carpeta' : 'Archivo' }}
+            </span>
+            @if (elemento.nivel > 0) {
+  <button
+    type="button"
+    class="boton-eliminar"
+    (click)="eliminarElemento(elemento.nodo.id)"
+  >
+    Eliminar
+  </button>
+}
+          </div>
+        } @empty {
+          <p class="vacio">El árbol todavía está vacío.</p>
+        }
+      </div>
+    </article>
+  </section>
+
+  <footer>
+  </footer>
+</main>
