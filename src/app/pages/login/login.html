@@ -1,0 +1,36 @@
+<h1>Challenge 10 - Supabase</h1>
+
+<h2>Iniciar sesión</h2>
+
+<form (ngSubmit)="entrar()">
+
+  <input
+    type="email"
+    name="email"
+    [(ngModel)]="email"
+    placeholder="Correo electrónico"
+    required
+  >
+
+  <input
+    type="password"
+    name="clave"
+    [(ngModel)]="clave"
+    placeholder="Contraseña"
+    required
+    minlength="6"
+  >
+
+  <button type="submit">
+    Iniciar sesión
+  </button>
+
+  <button type="button" (click)="registrar()">
+    Crear cuenta
+  </button>
+
+</form>
+
+@if (mensaje) {
+  <p>{{ mensaje }}</p>
+}
