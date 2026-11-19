@@ -1,0 +1,86 @@
+
+.container {
+  max-width: 850px;
+  margin: 50px auto;
+  padding: 35px;
+  background: #ffffff;
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.10);
+  font-family: Arial, sans-serif;
+}
+
+h1 {
+  color: #243b53;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.container > p {
+  text-align: center;
+  color: #627d98;
+}
+
+.search-box {
+  display: flex;
+  gap: 10px;
+  margin: 30px 0;
+}
+
+input {
+  padding: 12px;
+  border: 1px solid #bcccdc;
+  border-radius: 7px;
+  font-size: 15px;
+  min-width: 0;
+}
+
+input[type="text"] {
+  flex: 1;
+}
+
+input[type="number"] {
+  width: 90px;
+}
+
+button {
+  padding: 12px 22px;
+  background: #2878b5;
+  color: white;
+  border: none;
+  border-radius: 7px;
+  cursor: pointer;
+  font-size: 15px;
+}
+
+button:hover {
+  background: #185b8d;
+}
+
+h2 {
+  color: #243b53;
+  border-bottom: 2px solid #d9e2ec;
+  padding-bottom: 10px;
+}
+
+.product {
+  display: flex;
+  justify-content: space-between;
+  padding: 16px;
+  margin: 10px 0;
+  background: #f0f4f8;
+  border-radius: 8px;
+}
+
+.product strong {
+  color: #2878b5;
+}
+
+@media (max-width: 600px) {
+  .search-box {
+    flex-wrap: wrap;
+  }
+
+  .search-box input[type="text"] {
+    flex-basis: 100%;
+  }
+}

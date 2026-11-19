@@ -1,0 +1,35 @@
+
+<div class="container">
+  <h1>Smart Search Engine</h1>
+  <p>Busca productos por nombre y descubre los más populares.</p>
+
+  <div class="search-box">
+    <input
+      type="text"
+      [(ngModel)]="prefix"
+      placeholder="Ejemplo: air"
+    />
+
+    <input
+      type="number"
+      [(ngModel)]="k"
+      min="1"
+      placeholder="Top K"
+    />
+
+    <button (click)="search()">
+      Buscar
+    </button>
+  </div>
+
+  <h2>Resultados</h2>
+
+  <div *ngFor="let product of results" class="product">
+    <span>{{ product.name }}</span>
+    <strong>{{ product.popularity }} puntos</strong>
+  </div>
+
+  <p *ngIf="results.length === 0">
+    No hay resultados para mostrar.
+  </p>
+</div>
