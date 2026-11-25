@@ -1,1 +1,24 @@
 /* You can add global styles to this file, and also import other style files */
+
+html, body {
+  background: #101014 !important;
+  color: #ffffff;
+  font-family: 'Segoe UI', sans-serif;
+  margin: 0;
+  min-height: 100%;
+}
+
+body {
+  min-height: 100vh;
+}
+
+app-root {
+  display: block;
+  min-height: 100vh;
+}
+
+.dashboard {
+  background: #101014 !important;
+  color: #ffffff;
+  min-height: 100vh;
+}
