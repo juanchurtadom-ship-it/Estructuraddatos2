@@ -9,19 +9,14 @@ import { RouterOutlet } from '@angular/router';
   styleUrl: './app.css',
 })
 export class App {
-
-  protected readonly title = signal('FoodFlow');
-
-  
-  searchTerm = signal('');
-
+  protected readonly title = signal<string>('FoodFlow');
+  readonly searchTerm = signal<string>('');
 
   updateSearch(event: Event): void {
     const input = event.target as HTMLInputElement;
     this.searchTerm.set(input.value.toLowerCase().trim());
   }
 
-  
   matchesSearch(name: string, description: string): boolean {
     const term = this.searchTerm();
 
