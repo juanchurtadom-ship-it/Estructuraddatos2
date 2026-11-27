@@ -1,8 +1,47 @@
 
+@if (isHomePage()) {
 <div class="foodflow">
 
   <!-- NAVBAR -->
   <header class="navbar">
+    @if (cartOpen()) {
+  <section class="cart-panel">
+    <div class="cart-header">
+      <h2>Tu carrito 🛒</h2>
+      <button (click)="toggleCart()">✕</button>
+    </div>
+
+    @if (getCartItems().length === 0) {
+      <p>Tu carrito está vacío.</p>
+    } @else {
+      @for (item of getCartItems(); track item.id) {
+        <div class="cart-item">
+          <div>
+            <strong>{{ item.name }}</strong>
+            <p>{{ item.restaurant }}</p>
+            <span>${{ item.price }}</span>
+          </div>
+
+          <button (click)="removeFromCart(item.id)">
+            Eliminar
+          </button>
+        </div>
+      }
+
+      <div class="cart-total">
+        <strong>Total:</strong>
+        <strong>${{ getCartTotal() }}</strong>
+      </div>
+
+      <button
+        class="checkout-button"
+        (click)="placeOrder()"
+      >
+        Confirmar pedido
+      </button>
+    }
+  </section>
+}
     <a href="#" class="brand">
       <span class="brand-icon">F</span>
       <span>Food<span class="brand-highlight">Flow</span></span>
@@ -18,9 +57,17 @@
     <div class="nav-actions">
       <button class="icon-button" aria-label="Favoritos">♡</button>
       <button class="icon-button cart-button" aria-label="Carrito">
-        🛒 <span class="cart-count">0</span>
+        <button
+  class="icon-button cart-button"
+  aria-label="Carrito"
+  (click)="toggleCart()"
+>
+  🛒 <span class="cart-count">{{ cartCount() }}</span>
+</button>
       </button>
-      <button class="login-button">Iniciar sesión</button>
+      <button class="login-button" routerLink="/login">
+  Iniciar sesión
+</button>
     </div>
   </header>
 
@@ -82,27 +129,27 @@
       </div>
 
       <div class="categories">
-        <div class="category-card">
+        <div class="category-card" (click)="selectCategory('hamburguesas')">
           <span>🍔</span>
           <strong>Hamburguesas</strong>
         </div>
-        <div class="category-card">
+        <div class="category-card" (click)="selectCategory('pizzas')">
           <span>🍕</span>
           <strong>Pizzas</strong>
         </div>
-        <div class="category-card">
+        <div class="category-card" (click)="selectCategory('sushi')">
           <span>🍣</span>
           <strong>Sushi</strong>
         </div>
-        <div class="category-card">
+        <div class="category-card" (click)="selectCategory('mexicana')">
           <span>🌮</span>
           <strong>Mexicana</strong>
         </div>
-        <div class="category-card">
+        <div class="category-card" (click)="selectCategory('pollo')">
           <span>🍗</span>
           <strong>Pollo</strong>
         </div>
-        <div class="category-card">
+        <div class="category-card" (click)="selectCategory('postres')">
           <span>🍰</span>
           <strong>Postres</strong>
         </div>
@@ -132,10 +179,18 @@
         </div>
         <a href="#" class="see-all">Ver todos →</a>
       </div>
+@if (getTopRestaurant(); as top) {
+  <div class="avl-highlight">
+    <span>🏆 RESTAURANTE MEJOR VALORADO</span>
 
+    <strong>{{ top.name }}</strong>
+
+    <span>★ {{ top.rating }} / 5</span>
+  </div>
+}
       <div class="restaurant-grid">
-
-        <article class="restaurant-card">
+@if (matchesSearch('Burger House', 'Hamburguesas Americana')) {
+  <article class="restaurant-card">
           <div class="restaurant-image">
             <img
               src="https://images.unsplash.com/photo-1571091718767-18b5b1457add?w=700"
@@ -150,12 +205,17 @@
             </div>
             <p>Hamburguesas · Americana</p>
             <div class="restaurant-meta">
+              <button class="add-cart-button"
+  (click)="addToCart('Combo Burger', 'Burger House', 24900)">
+  Agregar al carrito · $24.900
+</button>
               <span>🕒 20-30 min</span>
               <span>Envío $3.000</span>
             </div>
           </div>
         </article>
-
+      }
+        @if (matchesSearch('Napoli Pizza', 'Pizza Italiana')) {
         <article class="restaurant-card">
           <div class="restaurant-image">
             <img
@@ -171,12 +231,17 @@
             </div>
             <p>Pizza · Italiana</p>
             <div class="restaurant-meta">
+              <button class="add-cart-button"
+  (click)="addToCart('Pizza Napolitana', 'Napoli Pizza', 27900)">
+  Agregar al carrito · $27.900
+</button>
               <span>🕒 25-35 min</span>
               <span>Envío $2.500</span>
             </div>
           </div>
         </article>
-
+      }
+        @if (matchesSearch('Sakura Sushi', 'Sushi Japonesa')) {
         <article class="restaurant-card">
           <div class="restaurant-image">
             <img
@@ -191,14 +256,69 @@
             </div>
             <p>Sushi · Japonesa</p>
             <div class="restaurant-meta">
+              <button class="add-cart-button"
+  (click)="addToCart('Sushi Roll', 'Sakura Sushi', 32900)">
+  Agregar al carrito · $32.900
+</button>
               <span>🕒 30-40 min</span>
               <span>Envío $4.000</span>
             </div>
           </div>
         </article>
+      }
 
       </div>
     </section>
+    <!-- DELIVERY ROUTE -->
+<section class="section delivery-route-section">
+  <div class="section-heading">
+    <div>
+      <span class="eyebrow">LOGÍSTICA FOODFLOW</span>
+      <h2>Rutas inteligentes de entrega</h2>
+      <p class="section-description">
+        Calculamos el recorrido más eficiente para cada pedido.
+      </p>
+    </div>
+  </div>
+
+  <div class="delivery-route-card">
+
+    <div class="route-icon">📍</div>
+
+    <div class="route-content">
+      <span class="route-label">RUTA CALCULADA CON DIJKSTRA</span>
+
+      @if (deliveryRoute(); as route) {
+
+        <div class="route-path">
+          @for (stop of route.path; track stop; let last = $last) {
+            <strong>{{ stop }}</strong>
+
+            @if (!last) {
+              <span class="route-arrow">→</span>
+            }
+          }
+        </div>
+
+        <p class="route-distance">
+          Distancia total:
+          <strong>{{ route.distance }} km</strong>
+        </p>
+
+      } @else {
+        <p>No se encontró una ruta disponible.</p>
+      }
+
+      <button
+        class="route-button"
+        (click)="calculateDeliveryRoute('Restaurante', 'Cliente')"
+      >
+        Calcular ruta más corta
+      </button>
+    </div>
+
+  </div>
+</section>
 
     <!-- FOOTER -->
     <footer class="footer">
@@ -213,5 +333,5 @@
   </main>
 
 </div>
-
+}
 <router-outlet />

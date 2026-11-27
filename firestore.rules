@@ -1,0 +1,60 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function signedIn() {
+      return request.auth != null;
+    }
+
+    function isRestaurant() {
+      return signedIn()
+        && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'restaurante';
+    }
+
+    match /users/{userId} {
+      allow create: if signedIn()
+        && request.auth.uid == userId
+        && request.resource.data.keys().hasAll(['id', 'name', 'email', 'role', 'createdAt'])
+        && request.resource.data.keys().hasOnly(['id', 'name', 'email', 'role', 'createdAt'])
+        && request.resource.data.id == userId
+        && request.resource.data.email == request.auth.token.email
+        && request.resource.data.role == 'cliente'
+        && request.resource.data.name is string
+        && request.resource.data.name.size() > 0;
+
+      allow get: if signedIn() && request.auth.uid == userId;
+      allow list: if false;
+      allow update: if signedIn()
+        && request.auth.uid == userId
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['name'])
+        && request.resource.data.name is string
+        && request.resource.data.name.size() > 0;
+      allow delete: if false;
+    }
+
+    match /orders/{orderId} {
+      allow create: if signedIn()
+        && request.resource.data.customerId == request.auth.uid
+        && request.resource.data.id == orderId
+        && request.resource.data.status == 'Recibido'
+        && request.resource.data.customerName is string
+        && request.resource.data.restaurantName is string
+        && request.resource.data.items is list
+        && request.resource.data.total is number
+        && request.resource.data.total >= 0
+        && request.resource.data.address is string
+        && request.resource.data.createdAt is string;
+
+      allow read: if signedIn()
+        && (resource.data.customerId == request.auth.uid || isRestaurant());
+
+      allow update: if isRestaurant()
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['status'])
+        && request.resource.data.status in [
+          'Recibido', 'En preparación', 'Listo para recoger', 'En camino', 'Entregado'
+        ];
+
+      allow delete: if false;
+    }
+  }
+}

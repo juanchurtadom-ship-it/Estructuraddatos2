@@ -34,7 +34,12 @@
         <p class="error-message" role="alert">{{ errorMessage }}</p>
       }
 
-      <button type="submit" [disabled]="loginForm.invalid">Entrar a FoodFlow</button>
+      <button
+  type="submit"
+  [disabled]="loginForm.invalid || loading"
+>
+  {{ loading ? 'Ingresando...' : 'Entrar a FoodFlow' }}
+</button>
     </form>
 
     <p class="switch-link">¿No tienes cuenta? <a routerLink="/registro">Regístrate</a></p>

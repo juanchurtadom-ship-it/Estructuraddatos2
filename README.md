@@ -1,59 +1,62 @@
-# Foodflow
+# FoodFlow
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 22.3.0.
+Aplicación web de pedidos de comida creada con Angular y Firebase. El proyecto incluye catálogo con búsqueda y categorías, carrito, cuentas de cliente, panel de restaurante y cinco estructuras de datos aplicadas a funciones del sistema.
 
-## Development server
+## Requisitos
 
-To start a local development server, run:
+- Node.js compatible con Angular CLI 22 y npm.
+- Proyecto Firebase con Authentication (correo y contraseña) y Cloud Firestore.
 
-```bash
-ng serve
-```
-
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+## Desarrollo local
 
 ```bash
-ng generate component component-name
+npm ci
+npm start
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+La aplicación queda disponible en `http://localhost:4200/`.
+
+## Compilar para producción
 
 ```bash
-ng generate --help
+npm run build
 ```
 
-## Building
+El resultado Angular se genera en `dist/foodflow/browser`. La configuración de conexión Firebase está en `src/app/app.config.ts`. Antes de publicar, confirma que las claves correspondan al proyecto Firebase de entrega y que los dominios autorizados estén configurados en Firebase Authentication.
 
-To build the project run:
+## Firebase
+
+El proyecto enlazado por Firebase CLI es `foodflow-2431b` (`.firebaserc`). Publica las reglas incluidas con:
 
 ```bash
-ng build
+npx firebase-tools deploy --only firestore:rules --project foodflow-2431b
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+Activa el proveedor de correo y contraseña en Firebase Authentication. Las altas públicas crean cuentas de cliente. Para habilitar el panel, crea la cuenta de restaurante en Authentication y crea manualmente `users/{UID}` en Firestore con `id`, `name`, `email`, `role: "restaurante"` y `createdAt`. Solo una persona administradora debe asignar ese rol.
 
-## Running unit tests
+## Publicar en Netlify
 
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+Conecta el repositorio a Netlify y configura:
 
-```bash
-ng test
-```
+- Build command: `npm run build`
+- Publish directory: `dist/foodflow/browser`
 
-## Running end-to-end tests
+La regla de `netlify.toml` permite que las rutas de Angular Router carguen correctamente. Agrega el dominio publicado a los dominios autorizados de Firebase Authentication.
 
-For end-to-end (e2e) testing, run:
+## Estructuras de datos
 
-```bash
-ng e2e
-```
+| Estructura | Uso | Coste de la implementación |
+| --- | --- | --- |
+| Lista enlazada | Elementos del carrito | `append` y `remove`: O(n); recorrido: O(n) |
+| Cola | Orden local de pedidos | `enqueue`: O(1); `dequeue`: O(n) porque usa `Array.shift()` |
+| Trie | Búsqueda por prefijo en restaurantes | Inserción: O(m); búsqueda: O(m + nodos recorridos para reunir resultados) |
+| Árbol AVL | Orden y búsqueda de restaurantes por calificación | Inserción y búsqueda: O(log n); recorrido ordenado: O(n) |
+| Grafo con Dijkstra | Ruta de entrega de menor distancia | O(V² + E), con selección lineal del siguiente vértice |
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+La descripción técnica, limitaciones y criterios de prueba están en [`docs/INFORME_TECNICO.md`](docs/INFORME_TECNICO.md).
 
-## Additional Resources
+## Integrantes y propuesta gráfica
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Integrantes: Juan Camilo Hurtado y Jhan Carlos Vasquez.
+
+Agrega aquí el enlace de la propuesta gráfica solicitada por el curso.
