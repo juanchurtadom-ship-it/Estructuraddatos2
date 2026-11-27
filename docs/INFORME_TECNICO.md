@@ -80,17 +80,6 @@ npm run build
 
 Netlify usa `netlify.toml`: comando `npm run build`, directorio `dist/foodflow/browser` y fallback a `index.html` para Angular Router. Tras publicar, el dominio debe registrarse entre los dominios autorizados de Firebase Authentication. Las reglas de Firestore se publican por Firebase CLI o desde Firebase Console.
 
-## 7. Validación de entrega
-
-- Compilar con configuración de producción.
-- Crear un cliente, cerrar sesión e iniciar sesión de nuevo.
-- Verificar que un cliente no pueda asignarse rol de restaurante.
-- Crear un pedido como cliente y comprobar que aparece en el panel de restaurante.
-- Cambiar el estado y comprobar la actualización del lado del cliente.
-- Verificar acceso denegado a pedidos de otros clientes y a cambios de estado desde cuentas cliente.
-- Probar búsqueda, carrito, cola, ranking AVL y ruta en la interfaz.
-- Completar integrantes, enlace a propuesta gráfica y URL final de Netlify en la entrega.
-
-## 8. Datos que deben completar los autores
+## 7. Datos que deben completar los autores
 
 Integrantes: Juan Camilo Hurtado y Jhan Carlos Vasquez. URL final de Netlify publicada : https://estructuraddatos2.netlify.app/.
