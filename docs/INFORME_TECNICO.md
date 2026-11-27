@@ -93,4 +93,4 @@ Netlify usa `netlify.toml`: comando `npm run build`, directorio `dist/foodflow/b
 
 ## 8. Datos que deben completar los autores
 
-Integrantes: Juan Camilo Hurtado y Jhan Carlos Vasquez. Falta incorporar la rúbrica del curso, el enlace a la propuesta gráfica y la URL final de Netlify cuando esté publicada.
+Integrantes: Juan Camilo Hurtado y Jhan Carlos Vasquez. URL final de Netlify publicada : https://estructuraddatos2.netlify.app/.
